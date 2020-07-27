@@ -21,7 +21,7 @@ class App extends React.Component {
       temp_max: undefined,
       temp_min: undefined,
       description: "",
-      error: false
+      error: false,
     }
 
     this.weatherIcon = {
@@ -31,7 +31,7 @@ class App extends React.Component {
       Snow: "wi-snow",
       Atmosphere: "wi-fog",
       Clear: "wi-day-sunny",
-      Clouds: "wi-day-fog"
+      Clouds: "wi-day-fog",
     }
   }
 
@@ -68,7 +68,7 @@ class App extends React.Component {
     }
   }
 
-  getWeather = async e => {
+  getWeather = async (e) => {
     e.preventDefault()
 
     const city = e.target.elements.city.value
@@ -76,7 +76,7 @@ class App extends React.Component {
 
     if (city && country) {
       const api_call = await fetch(
-        `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${API_key}`
+        `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${API_key}`
       )
 
       const response = await api_call.json()
@@ -88,13 +88,13 @@ class App extends React.Component {
         temp_min: this.calCelsius(response.main.temp_min),
         description: response.weather[0].description,
         icon: this.weatherIcon.Thunderstorm,
-        error: false
+        error: false,
       })
 
       this.getWeatherIcon(this.weatherIcon, response.weather[0].id)
     } else {
       this.setState({
-        error: true
+        error: true,
       })
     }
   }
